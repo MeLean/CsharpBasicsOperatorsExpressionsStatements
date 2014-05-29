@@ -1,0 +1,31 @@
+using System;
+/* Write an expression that checks if given integer is odd or even. Examples:
+ *  n	Odd
+ *  3	true
+ *  2	false
+ * -2	false
+ * -1	true
+ *  0	false */
+class OddEvenIntegers
+{
+    static void Main()
+    {
+        int number = 0;
+        bool isOdd = true;
+        Console.Write("Enter a integer: ");
+
+        if( int.TryParse(Console.ReadLine(), out number))
+        {
+            if (number % 2 == 0)
+            {
+                isOdd = false;
+            }
+
+            Console.WriteLine(isOdd);            
+        }
+        else
+        {
+            Console.WriteLine("You have entered invalid data!");
+        }
+    }
+}
