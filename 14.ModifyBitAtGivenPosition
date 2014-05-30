@@ -1,0 +1,46 @@
+using System;
+/* We are given an integer number n, a bit value v (v = 0 or 1) and a position p. Write a sequence of operators (a few lines of C# code)
+ * that modifies n to hold the value v at the position p from the binary representation of n while preserving all other bits in n. 
+ * Examples:
+ * n	binary representation of n	p	v	binary result	    result
+ * 5	00000000 00000101	        2	0	00000000 00000001	1
+ * 0	00000000 00000000	        9	1	00000010 00000000	512
+ * 15	00000000 00001111	        1	1	00000000 00001111	15 */
+class ModifyBitAtGivenPosition
+{
+    static void Main()
+    {
+        int number = 0;
+        int position = 0;
+        int value = 0;
+        int result = 0;
+
+        Console.WriteLine("Enter a integer (n) and the position (p) of the bit that will be changed and the value (v) that will be have after the change (1 or 0): ");
+
+        if (int.TryParse(Console.ReadLine(), out number) && int.TryParse(Console.ReadLine(), out position) && int.TryParse(Console.ReadLine(), out value)&&(value == 0 || value == 1))
+        {
+            Console.Clear();
+            int newNum = number >> position;
+            string binaryNumber = Convert.ToString(number, 2);
+            if (value == 1)
+            {
+                int changer = 1 << position;
+                result = number | changer;                            
+            }
+            else
+            {
+                int changer = ~(1 << position);
+                Console.WriteLine(Convert.ToString(changer,2));
+                result = number & changer;
+            }
+            
+            string binaryResult = Convert.ToString(result, 2);
+            Console.WriteLine("n\tbinary representation\tp\tv\tbinary result\t\tresult");
+            Console.WriteLine("{0}\t{1}\t{2}\t{3}\t{4}\t{5}", number, binaryNumber.PadLeft(16, '0'), position, value, binaryResult.PadLeft(16, '0'), result);
+        }
+        else
+        {
+            Console.WriteLine("You have entered invalid data!");
+        }
+    }
+}
