@@ -1,0 +1,38 @@
+using System;
+/* Write an expression that checks if given point (x,  y) is inside a circle K({0, 0}, 2). 
+ * Examples: 
+ *  0	 1	    true
+ * -2	 0	    true
+ * -1	 2	    false
+ * 1.5	-1	    true
+ * -1.5	-1.5	false
+
+ */
+class PointInsideACircle
+{
+    static void Main()
+    {
+        double abscissa = 0;
+        double ordinate = 0;
+        double cyrcleRadius = 2;
+        bool isInside = false;
+
+        Console.WriteLine("Enter the coordinates x and y:");
+
+        if (double.TryParse(Console.ReadLine(), out abscissa) && double.TryParse(Console.ReadLine(), out ordinate))
+        {
+            double pointRadius = Math.Sqrt((abscissa * abscissa) + (ordinate * ordinate));
+            
+            if (pointRadius <= cyrcleRadius)
+            {
+                isInside = true;
+            }
+
+            Console.WriteLine(isInside);
+        }
+        else
+        {
+            Console.WriteLine("You have entered invalid data!");
+        }
+    }
+}
