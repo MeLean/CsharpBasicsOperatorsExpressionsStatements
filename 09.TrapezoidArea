@@ -1,0 +1,32 @@
+using System;
+/* Write an expression that calculates trapezoid's area by given sides a and b and height h.
+ * Examples:
+ * a	    b	    h	    area
+ * 5	    7	    12	    72	
+ * 2	    1	    33	    49.5	
+ * 8.5	    4.3	    2.7	    17.28	
+ * 100	    200	    300	    45000	
+ * 0.222	0.333	0.555	0.1540125 */
+class TrapezoidArea
+{
+    static void Main()
+    {
+        double sideA = 0;
+        double sideB = 0;
+        double height = 0;
+
+        Console.WriteLine("Enter the side a, side b and height h:");
+
+        if (double.TryParse(Console.ReadLine(), out sideA) && double.TryParse(Console.ReadLine(), out sideB) && double.TryParse(Console.ReadLine(), out height))
+        {
+            double area = ((sideA + sideB)/2*height);
+            Console.Clear();
+            Console.WriteLine("a\tb\th\tarea");
+            Console.WriteLine("{0}\t{1}\t{2}\t{3}",sideA, sideB, height, area);
+        }
+        else
+        {
+            Console.WriteLine("You have entered invalid data!");
+        }
+    }
+}
