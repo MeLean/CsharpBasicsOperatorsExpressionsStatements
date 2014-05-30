@@ -1,0 +1,55 @@
+using System;
+
+class PointInsideCircleOutsideRectangle
+{
+/* Write an expression that checks for given point (x, y) if it is within the circle K({1, 1}, 1.5) 
+ * and out of the rectangle R(top=1, left=-1, width=6, height=2). Examples:
+ * x	    y	    inside K & outside of R
+ * 1	    2	    yes
+ * 2.5	    2	    no	
+ * 0	    1	    no
+ * 2.5	    1	    no
+ * 2	    0	    no	
+ * 4	    0	    no	
+ * 2.5	    1.5	    no	
+ * 2	    1.5	    yes	
+ * 1	    2.5	    yes
+ * -100	    -100	no	*/
+
+    static void Main()
+    {
+        double pointX = 0;
+        double pointY = 0;
+        double cyrcleRadius = 1.5;
+        double cyrcleX = 1;
+        double cyrcleY = 1;
+        double top = 1;
+        double height = 1;
+        double left = -1;
+        double width = 6; 
+        string result = "no";
+
+        Console.WriteLine("Enter the coordinates x and y:");
+
+        if (double.TryParse(Console.ReadLine(), out pointX) && double.TryParse(Console.ReadLine(), out pointY))
+        {
+            //checks is it the point outside of rectangle.
+            bool isOutsideRectangle = (pointY < (top - height) || pointY > (top)) || (pointX < (left) || pointX > (width + left));
+     
+            //cheks is it the point inside of cyrcle
+            bool isInsideCyrcle = ((pointX - cyrcleX) * (pointX - cyrcleX)) + ((pointY - cyrcleY) * (pointY - cyrcleY)) <= (cyrcleRadius * cyrcleRadius);
+
+            //checks the condition.            
+            if(isOutsideRectangle && isInsideCyrcle )
+            {
+                result = "yes";
+            }
+
+            Console.WriteLine(result);
+        }
+        else
+        {
+            Console.WriteLine("You have entered invalid data!");
+        }
+    }
+}
