@@ -1,0 +1,69 @@
+using System;
+using System.Text;
+/* Write an expression that checks if given positive integer number n (n ≤ 100) is prime 
+ * (i.e. it is divisible without remainder only to itself and 1).
+ * Examples:
+ * n	Prime?
+ * 1	false
+ * 2	true
+ * 3	true
+ * 4	false
+ * 9	false
+ * 7	true
+ * 51	false
+ * -3	false
+ * 0	false */
+
+//class PrimeNumberCheckLoop //that is not quait good but posible way to solve the problem
+//{
+//    static void Main()
+//    {
+//        int number = 0;
+//        bool isPrime = false;
+//        int[] primeNumbers = new int[25] { 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97};
+//        Console.Write("Enter a positive integer up 0 to 100: ");
+//        if (int.TryParse(Console.ReadLine(), out number))
+//        {
+//            foreach (int primeItem in primeNumbers)
+//            {
+//                if (primeItem == number)
+//                {
+//                    isPrime = true; 
+//                }
+//            }
+//            Console.WriteLine(isPrime);
+//        }
+//        else
+//        {
+//            Console.WriteLine("You have entered invalid data!");
+//        }
+//    }
+//}
+
+class PrimeNumberCheck
+{
+    static void Main()
+    {
+        int number = 0;
+        bool isPrime = true;
+        Console.WriteLine("Enter an integer which value is between 0 and 100: ");
+
+        if (int.TryParse(Console.ReadLine(), out number))
+        {
+            for (int i = 2; i <= Math.Sqrt(number); i++) // Math.Sqrt is the maximal divier it is used to spare some loops. 
+            {
+                if (number % i == 0)
+                {
+                    isPrime = false;
+                    break;
+                }
+            }
+
+            Console.WriteLine(isPrime);
+        }
+        else
+        {
+            Console.WriteLine("You have entered invalid data!");
+        }
+    }
+}
