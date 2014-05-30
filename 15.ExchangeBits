@@ -1,0 +1,70 @@
+using System;
+/* Write a program that exchanges bits 3, 4 and 5 with bits 24, 25 and 26 of given 32-bit unsigned integer.
+ * Examples:
+ * n	        binary representation of n	            binary result	                        result
+ * 1140867093	01000100 00000000 01000000 00010101	    01000010 00000000 01000000 00100101	    1107312677
+ * 255406592	00001111 00111001 00110010 00000000	    00001000 00111001 00110010 00111000	    137966136
+ * 4294901775	11111111 11111111 00000000 00001111	    11111001 11111111 00000000 00111111	    4194238527
+ * 5351	        00000000 00000000 00010100 11100111	    00000100 00000000 00010100 11000111	    67114183
+ * 2369124121	10001101 00110101 11110111 00011001	    10001011 00110101 11110111 00101001	    2335569705
+*/
+class ExchangeBits
+{
+    static void Main()
+    {
+        uint number = 0;
+
+        do
+        {
+            Console.Write("Please, enter a integer (n): ");
+
+            if (uint.TryParse(Console.ReadLine(), out number))
+            {
+                break;
+            }
+            else
+            {
+                Console.WriteLine("You have entered an invalid data. Try again!");
+            }
+        } while (true);
+        
+        Console.Clear();
+        Console.WriteLine("You entered number \"{0}\" which is binary \"{1}\".", number, Convert.ToString(number,2));
+        
+        uint[] arrayString = new uint[32];
+
+        for (int i = 31; i >= 0; i--)
+        {
+            uint var = number << i;
+            arrayString[31 - i] = var >> 31;
+        }
+
+        //Console.WriteLine("bit #3 = {0}, bit #4 = {1} and bit #5 = {2}", arrayString[3], arrayString[4], arrayString[5]);
+        //Console.WriteLine("bit #24 = {0}, bit #25 = {1} and bit #26 = {2}", arrayString[24], arrayString[25], arrayString[26]);
+        uint temp3 = arrayString[3];
+        uint temp4 = arrayString[4];
+        uint temp5 = arrayString[5];
+
+        arrayString[3] = arrayString[24];
+        arrayString[4] = arrayString[25];
+        arrayString[5] = arrayString[26];
+
+        arrayString[24] = temp3;
+        arrayString[25] = temp4;
+        arrayString[26] = temp5;
+
+        //Console.WriteLine("new bit #3 = {0}, new bit #4 = {1} and new bit #5 = {2}", arrayString[3], arrayString[4], arrayString[5]);
+        //Console.WriteLine("new bit #24 = {0}, new bit #25 = {1} and new bit #26 = {2}", arrayString[24], arrayString[25], arrayString[26]);
+        string result = "";
+
+        for (int i = 31; i >= 0; i--)
+        {
+            result = result + arrayString[i];
+        }
+
+        uint resultDec = Convert.ToUInt32(result, 2);
+
+        Console.WriteLine("result is \"{0}\" which is number \"{1}\".", result, resultDec);
+
+    }
+}
