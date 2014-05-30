@@ -1,0 +1,92 @@
+using System;
+/* Write a program that exchanges bits {p, p+1, …, p+k-1} with bits {q, q+1, …, q+k-1} of a given 32-bit unsigned integer. 
+ * The first and the second sequence of bits may not overlap. Examples:
+ * 
+ * n	        p	q	k	binary representation of n	            binary result	                        result
+ * 1140867093	3	24	3	01000100 00000000 01000000 00010101	    01000010 00000000 01000000 00100101     1107312677
+ * 4294901775	24	3	3	11111111 11111111 00000000 00001111	    11111001 11111111 00000000 00111111     4194238527
+ * 2369124121	2	22	10	10001101 00110101 11110111 00011001	    01110001 10110101 11111000 11010001     1907751121
+ * 987654321	2	8	11	-	                                    -                                       overlapping
+ * 123456789	26	0	7	-	                                    -	                                    out of range
+ * 33333333333	-1	0	33	-	                                    -	                                    out of range
+
+ */
+class AdvancedBitExchange
+{
+    static void Main()
+    {
+        long numberN = 0;
+        int numberP = 0;
+        int numberQ = 0;
+        int numberK = 0;
+        long mask = 0;
+        object resultNum;
+
+        do
+        {
+            Console.WriteLine("Please, enter values n, p, q, k by hitting \"Еnter\" for each :");
+
+            if (long.TryParse(Console.ReadLine(), out numberN) && int.TryParse(Console.ReadLine(), out numberP) && int.TryParse(Console.ReadLine(), out numberQ)
+                              && int.TryParse(Console.ReadLine(), out numberK))
+            {
+                break;
+            }
+            else
+            {
+                Console.WriteLine("You have entered an invalid data. Try again or press \"Cntrl + C\"!");
+            }
+        } while (true);
+        
+        // sets how is sinior and How is junior bit.
+        if (numberQ < numberP)
+	    {
+		    int temp = numberQ;
+            numberQ = numberP;
+            numberP = temp;
+	    }
+
+        if (numberP < 0 || numberQ < 0 || numberK < 0 || (numberP + numberK) > 32 || (numberQ + numberK) > 32)
+        {
+            resultNum = "aut of range";
+        }
+        else if (numberQ  < (numberP + numberK))
+        {
+            resultNum = "overlapping";
+        }
+        else
+        {
+            Console.Clear();
+            Console.WriteLine("number = {0}", numberN);
+            Console.WriteLine("binary number = {0}", Convert.ToString(numberN, 2).PadLeft(32, '0'));
+            //makes appropriate mask
+            string strMask = "";
+            for (int i = 0; i < numberK; i++)
+            {
+                strMask = strMask + "1";
+            }
+            mask = Convert.ToUInt32(strMask, 2);
+
+            //gets the p+k-1 bits and q+k-1 bits in NumberN
+            long bitsPK = numberN & (mask << numberP);
+            long bitsQK = numberN & (mask << numberQ);
+            //Console.WriteLine("bitsPK {0}", Convert.ToString(bitsPK, 2));
+            //Console.WriteLine("bitsQK {0}", Convert.ToString(bitsQK, 2));
+            //zeroes p+k-1 and q+k-1 bits in NumberN
+            numberN = numberN & (~(mask << numberP));
+            numberN = numberN & (~(mask << numberQ));
+
+            //sets q+k-1 bits of position p+k-1
+            bitsPK = bitsPK << numberQ - numberP;
+
+            //sets p+k-1 bits of position q+k-1
+            bitsQK = bitsQK >> numberQ - numberP;
+
+            //changes values of bits p+k-1 and q+k-1
+
+            resultNum = numberN | bitsPK | bitsQK;
+            Console.WriteLine("binary result = {0}", Convert.ToString((long)resultNum, 2).PadLeft(32, '0')); //prints buinary result
+        }
+
+        Console.WriteLine("result = {0}", resultNum);
+    }
+}
